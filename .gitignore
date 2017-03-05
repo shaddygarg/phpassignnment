@@ -1,10 +1,1 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "9914647680";
-$db="users";
-$conn = new mysqli($servername, $username, $password, $db);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-?>
+connection.php
