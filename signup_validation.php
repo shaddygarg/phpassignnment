@@ -36,6 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	}	
 	if(isset($password)){
 		if(strcmp($password,$cnfmpassword)==0){
+			$password=sha1($password);
 		}
 		else{
 			$flag=1;

@@ -1,9 +1,10 @@
 <?php include_once("connection.php"); $err=$err1=""?>
 <?php 
+	session_start();
 	if($_SERVER["REQUEST_METHOD"] == "POST")
 	{
 		$username=$_POST["username"];
-		$password=$_POST["password"];
+		$password=sha1($_POST["password"]);
 		$sql = "select * from signedup where (username='$username' or email='$username')";
 		$sql1 = $conn->query($sql);
 		$row = $sql1->fetch_assoc();
@@ -12,7 +13,7 @@
 		$sql1 = $conn->query($sql);
 		$row = $sql1->fetch_assoc();
 		if(strcmp($row['username'],"")){
-
+			$_SESSION["username"]=$username;
 		}
 		else{
 			$err1="Password is wrong";
