@@ -1,10 +1,10 @@
-<?php include_once("signup_validation.php")	?>
+<?php include_once("signup_validation.php");?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>signup</title>
 	<script type="text/javascript">
-		/*var a = 0;
+		var a = 0;
 		function checkusername(){
 			if(document.getElementById('signup_username').value.replace(' ','').match(/^[a-zA-Z0-9]+$/)){
 				document.getElementById('signup_username').style.borderColor="green";
@@ -18,7 +18,23 @@
 			if(document.getElementById('signup_username').value==""){
 				document.getElementById('signup_username').style.borderColor="black";			
 			}
+			str=document.getElementById('signup_username').value;
+			console.log(str);
+			if (str == "") {
+				document.getElementById("aj").innerHTML = "";
+				return;
+			} else { 
+					xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("aj").innerHTML = this.responseText;
+					}
+				};
+				xmlhttp.open("GET","getuser.php?q="+str,true);
+				xmlhttp.send();
+			}
 		}
+
 
 		function checkname(){
 			if(document.getElementById('signup_name').value.replace(' ','').search(/[^a-zA-Z]+/) != -1){
@@ -96,7 +112,7 @@
 			if(a==1){
 				return true;
 			}
-		}*/
+		}
 	</script>
 </head>
 <body>
@@ -107,8 +123,9 @@
 		<br>
 		Username:<input type="text" name="username" required="required" id="signup_username" value="<?php echo (isset($_POST['username']))?$_POST['username']:'';?>"onchange="checkusername()" >
 		<?php 
-		if($username!="")echo $err1 ?>
-		<br>
+		if($username!=""){echo $err1; 
+		}?>
+		<span id="aj"></span><br>
 		Password: <input type="Password" name="password" required="required" id="signup_password" value="<?php echo (isset($_POST['password']))?$_POST['password']:'';?>"onchange="checkpsswd()" ><br>
 		Confirm Password: <input type="Password" name="confirmpassword" value="<?php echo (isset($_POST['confirmpassword']))?$_POST['confirmpassword']:'';?>" id="cnfmpass" onchange="checkcnfmpsswd()"><?php if($cnfmpassword!="")echo $err4 ?><br>
 		Phone No.: <input type="text" name="phone" required="required" id="no1" value="<?php echo (isset($_POST['phone']))?$_POST['phone']:'';?>"onchange="checkphn()" >
@@ -121,5 +138,6 @@
 		<button type="reset" value="reset" id="reset" class="buttons">Reset</button>
 		<button id="submit" type="submit" class="buttons">Submit</button>
 	</form>
+
 </body>
 </html>	

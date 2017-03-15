@@ -1,15 +1,21 @@
 <?php
 include('connection.php');
+function test_input($data) {
+       $data = trim($data);
+       $data = stripslashes($data); 
+       $data = htmlspecialchars($data);
+       return $data;
+}
 $name = $email = $username = $password = $phone =$gender=$cnfmpassword="";
 $err1=$err2=$err3=$err4=$err5="";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-	$name=$_POST["name"];
-	$email=$_POST["email"];
-	$username=$_POST["username"];
-	$password=$_POST["password"];
-	$phone=$_POST["phone"];
-	$gender=$_POST["gender"];
-	$cnfmpassword=$_POST["confirmpassword"];
+	$name=test_input($_POST["name"]);
+	$email=test_input($_POST["email"]);
+	$username=test_input($_POST["username"]);
+	$password=test_input($_POST["password"]);
+	$phone=test_input($_POST["phone"]);
+	$gender=test_input($_POST["gender"]);
+	$cnfmpassword=test_input($_POST["confirmpassword"]);
 	$flag=0;
 	if(preg_match("/^[a-zA-Z0-9]+$/",$username)){
 		$sql=$conn->query("SELECT username from signedup where username='$username'");
