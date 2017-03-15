@@ -5,6 +5,25 @@ $username=$_SESSION['username'];?>
 <html>
 <head>
 	<title>Profile</title>
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		#cover{
+			position: relative;
+			width: 100%;
+			z-index: 0;
+			height: 400px;
+		}
+		#profile{
+			position: absolute;
+			left:0;
+			width: 30%;
+			height: 200px;
+			z-index: 1;
+			top:250px;
+		}
+	</style>
 </head>
 <body>
 	<p style="display: inline-block;">Welcome <?php echo $_SESSION['username']; ?></p>
@@ -17,8 +36,10 @@ $username=$_SESSION['username'];?>
 	$row1 = $sql1->fetch_assoc();
 	
 	?>
-	<table>
-		<tr><td></td><td></td></tr>
+    <?php echo "<img src='".$row1['coverpic']."' id='cover' />"; 
+    	  echo "<img src='".$row1['profilepic']."' id='profile' />";
+    	  ?>
+	<table id="tab">
 		<tr><td>NAME :</td><td><?php echo $row['name']; ?></td></tr>
 		<tr><td>PHONE :</td><td><?php echo $row['phone']; ?></td></tr>
 		<tr><td>EMAIL :</td><td><?php echo $row['email']; ?></td></tr>

@@ -50,62 +50,48 @@ function test_input($data) {
 					echo "Error updating record: " . $conn->error;
 				}
 			} else{}
-				if(preg_match("/^[a-zA-Z]+$/",$branch)){
-					$sql="UPDATE info SET branch='$branch' where username='$user'";
-					if ($conn->query($sql) === TRUE) {
-						echo "Record updated successfully";
-					} else {	
-						echo "Error updating record: " . $conn->error;
-					}
+			if(preg_match("/^[a-zA-Z]+$/",$branch)){
+				$sql="UPDATE info SET branch='$branch' where username='$user'";
+				if ($conn->query($sql) === TRUE) {
+					echo "Record updated successfully";
+				} else {	
+					echo "Error updating record: " . $conn->error;
 				}
-				else{
-					$flag=1;
-					$err1="Branch must consist of alphabets";
+			}
+			else{
+				$flag=1;
+				$err1="Branch must consist of alphabets";
+			}
+			if(preg_match("/^[a-zA-Z]+$/",$interests)){
+				$sql="UPDATE info SET interests='$interests' where username='$user'";
+				if ($conn->query($sql) === TRUE) {
+					echo "Record updated successfully";
+				} else {	
+					echo "Error updating record: " . $conn->error;
 				}
-				if(preg_match("/^[a-zA-Z]+$/",$interests)){
-					$sql="UPDATE info SET interests='$interests' where username='$user'";
-					if ($conn->query($sql) === TRUE) {
-						echo "Record updated successfully";
-					} else {	
-						echo "Error updating record: " . $conn->error;
-					}
-				}
-				else{
-					$flag=1;
-					$err2="Interests must consist of alphabets";
-				}
-			/*$target_dir = "uploads/";
-			$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+			}
+			else{
+				$flag=1;
+				$err2="Interests must consist of alphabets";
+			}
+			$target_dir = "uploads/";
+			$target_file = $target_dir.basename($_FILES["profilepic"]["name"]);
 			$uploadOk = 1;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			move_uploaded_file($_FILES["profilepic"]["tmp_name"], $target_file);
+			echo "The file ". basename( $_FILES["profilepic"]["name"]). " has been uploaded.";
+			$sql = "update info set profilepic = '$target_file' where username = '$user'";
+			$result = mysqli_query($conn,$sql); 
 			$target_dira = "uploads/";
-			$target_filea = $target_dira.basename($_FILES["fileToUploa"]["name"]);
+			$target_filea = $target_dira.basename($_FILES["coverpic"]["name"]);
 			$uploadOka = 1;
 			$imageFileTypea = pathinfo($target_filea,PATHINFO_EXTENSION);
-			if(isset($_POST["submit"])) {
-				$checka = getimagesize($_FILES["fileToUploa"]["name"]);
-				$uploadOka = 1;
-			}
-			if ($uploadOk == 0 and $uploadOka == 0 or $flag == 0) {
-				echo "Sorry, your file was not uploaded.";
-			} 
-			else {
-				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file) or move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_filea)) {
-					if($uploadOk == 1) {             echo "The file ". basename( $_FILES["fileToUploa"]["name"]). " has been uploaded.";
-					echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-					$sql = "update info set profilepic = '$target_file' where username = '$name'";
-					$result = mysqli_query($conn,$sql);
-				}
-				if($uploadOka == 1) {             $sqla = "update info set coverpic = '$target_filea' where username = '$name'";
-				$result = mysqli_query($conn,$sqla);
-			}         
-			echo "<script> window.location.assign('profile.php') </script>";
+			move_uploaded_file($_FILES["coverpic"]["tmp_name"], $target_filea);           
+			echo "The file ". basename( $_FILES["coverpic"]["name"]). " has been uploaded.";            
+			$sqla = "update info set coverpic = '$target_filea' where username = '$user'";
+			$result = mysqli_query($conn,$sqla);
 		}
-		else {
-			echo "Sorry, there was an error uploading your file.";
-		}*/
-	}
-?>
-</form>
+		?>
+	</form>
 </body>
 </html>
