@@ -1,6 +1,22 @@
 <?php include('connection.php'); 
 session_start();
-$username=$_SESSION['username'];
+$username = "";
+if(isset($_COOKIE['sessionid'])){
+	$test=$_COOKIE['sessionid'];
+	$sqlaa=$conn->query("SELECT username FROM cook WHERE value='$test'");
+	$rowaa=$sqlaa->fetch_assoc();
+	$username=$rowaa['username'];
+	echo $username;
+	if($username==''){
+		$username=$_SESSION['username'];
+	}
+}
+else{
+	$username=$_SESSION['username'];
+}
+if($username==''){
+	echo "Please Log in to continue"."<br>";
+}
 function test_input($data) {
 	$data = trim($data);
 	$data = stripslashes($data); 
@@ -41,9 +57,10 @@ function test_input($data) {
 	</style>
 </head>
 <body>
-	<p style="display: inline-block;">Welcome <?php echo $_SESSION['username']; ?></p>
+	<p style="display: inline-block;">Welcome <?php echo $username ?></p>
 	<a href="completeprofile.php"><button style="margin-left: 800px; " class="btn btn-default">Update Profile</button></a>
 	<a href="password.php"><button style="" class="btn btn-default">Update Password</button></a><br>
+	<a href="logout.php"><button class="btn btn-default">Logout</button></a>
 	<?php 
 	$sql=$conn->query("SELECT * from signedup where username='$username'");
 	$row = $sql->fetch_assoc();
@@ -73,7 +90,6 @@ function test_input($data) {
 	</form>
 	<?php 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-		$username=$_SESSION['username'];
 		$post=test_input($_POST['postss']);
 		$date=date("Y-m-d H:i:s");
 		$sql="INSERT INTO posts(username,post,postdate) VALUES ('$username','$post','$date')";

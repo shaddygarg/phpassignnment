@@ -55,7 +55,20 @@ function test_input($data) {
 			$interests=test_input($_POST["interests"]);
 			$profilepic="testing";
 			$coverpic='testing';
-			$user=$_SESSION['username'];
+			$user = "";
+			if(isset($_COOKIE['sessionid'])){
+				$test=$_COOKIE['sessionid'];
+				$sqlaa=$conn->query("SELECT username FROM cook WHERE value='$test'");
+				$rowaa=$sqlaa->fetch_assoc();
+				$usern=$rowaa['username'];
+				echo $user;
+				if($user==''){
+					$user=$_SESSION['username'];
+				}
+			}
+			else{
+				$user=$_SESSION['username'];
+			}
 			$sql12=$conn->query("SELECT username FROM info where username='$user'");
 			$row12=$sql12->fetch_assoc();
 			if($row12['username']==""){
@@ -120,7 +133,7 @@ function test_input($data) {
 // Allow certain file formats
 		if($imageFileTypea != "jpg" && $imageFileTypea != "png" && $imageFileTypea != "jpeg"
 			&& $imageFileType != "gif" ) {
-		$uploadOka = 0;
+			$uploadOka = 0;
 	}
 // Check if $uploadOk is set to 0 by an error
 	if ($uploadOka == 0) {
