@@ -1,6 +1,13 @@
 <?php include('connection.php'); 
 session_start();
-$username=$_SESSION['username'];?>
+$username=$_SESSION['username'];
+function test_input($data) {
+       $data = trim($data);
+       $data = stripslashes($data); 
+       $data = htmlspecialchars($data);
+       return $data;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +43,8 @@ $username=$_SESSION['username'];?>
 	$row1 = $sql1->fetch_assoc();
 	
 	?>
-    <?php echo "<img src='".$row1['coverpic']."' id='cover' />"; 
-    	  echo "<img src='".$row1['profilepic']."' id='profile' />";
+    <?php echo "<img src='".$row1['coverpic']."' id='cover' alt='Please update coverpic.'/>"; 
+    	  echo "<img src='".$row1['profilepic']."' id='profile' alt='please update profilepic.'/>";
     	  ?>
 	<table id="tab">
 		<tr><td>NAME :</td><td><?php echo $row['name']; ?></td></tr>
@@ -59,7 +66,7 @@ $username=$_SESSION['username'];?>
 	<?php 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$username=$_SESSION['username'];
-		$post=$_POST['postss'];
+		$post=test_input($_POST['postss']);
 		$date=date("Y-m-d H:i:s");
 		$sql="INSERT INTO posts(username,post,postdate) VALUES ('$username','$post','$date')";
 		if($conn->query($sql)){
@@ -74,8 +81,8 @@ $username=$_SESSION['username'];?>
 		<?php
 		$sql123=$conn->query("select * from info where username='$username'");
 		$row123=$sql123->fetch_assoc();
-		if($row123['branch']=='' or $row123['interests']==''){
-			echo "PLEASE UPDATE PROFILE TO SEE POSTS";
+		if($row123['branch']=='' or $row123['interests']=='' or $row123['profilepic']=='' or $row123['coverpic']=''){
+			echo "PLEASE COMPLETE PROFILE TO SEE POSTS";
 		}
 		else{
 			$sql = "SELECT * FROM posts";

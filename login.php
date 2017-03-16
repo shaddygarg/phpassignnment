@@ -15,14 +15,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		if(strcmp($row['username'],"")){
 			$_SESSION["username"]=$username;
 			if(isset($_POST['remember'])){
-				setcookie("username",$username,time() + (86400 * 30), "/");
+				$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
+				setcookie("username",sha1($username),time() + (86400 * 30),$domain,false);
+				setcookie("psswd",sha1($password),time()+(86400*30),$domain,false);
 				$sessionid=rand(10,10000);
 				$_SESSION['id']=$sessionid;
-				setcookie("sessionid",md5($sessionid),time() + (86400 * 30), "/");
+				setcookie("sessionid",md5($sessionid),time() + (86400 * 30),$domain,false);
 			}
 			$sql2=$conn->query("select * from info where username='$username'");
 			$row2=$sql2->fetch_assoc();
-			if($row2['branch']==""){
+			if($row2['branch']=="" or $row2['interests']==""){
 				header('Location:completeprofile.php');
 			}
 			else{

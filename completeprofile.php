@@ -78,20 +78,50 @@ function test_input($data) {
 			$target_file = $target_dir.basename($_FILES["profilepic"]["name"]);
 			$uploadOk = 1;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			move_uploaded_file($_FILES["profilepic"]["tmp_name"], $target_file);
-			echo "The file ". basename( $_FILES["profilepic"]["name"]). " has been uploaded.";
-			$sql = "update info set profilepic = '$target_file' where username = '$user'";
-			$result = mysqli_query($conn,$sql); 
-			$target_dira = "uploads/";
-			$target_filea = $target_dira.basename($_FILES["coverpic"]["name"]);
-			$uploadOka = 1;
-			$imageFileTypea = pathinfo($target_filea,PATHINFO_EXTENSION);
-			move_uploaded_file($_FILES["coverpic"]["tmp_name"], $target_filea);           
+// Allow certain file formats
+			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+				&& $imageFileType != "gif" ) {
+				echo "Profile Picture not changed .";
+			$uploadOk = 0;
+		}
+// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+			echo "Profile pic not changed.";
+// if everything is ok, try to upload file
+		} else {
+			if (move_uploaded_file($_FILES["profilepic"]["tmp_name"], $target_file)) {
+				$sql = "update info set profilepic = '$target_file' where username = '$user'";
+				$result = mysqli_query($conn,$sql);
+				echo "The file ". basename( $_FILES["profilepic"]["name"]). " has been uploaded.";
+			} else {
+				echo "Sorry, there was an error uploading your file.";
+			}
+		} 
+		$target_dira = "uploads/";
+		$target_filea = $target_dira.basename($_FILES["coverpic"]["name"]);
+		$uploadOka = 1;
+		$imageFileTypea = pathinfo($target_filea,PATHINFO_EXTENSION);
+// Allow certain file formats
+		if($imageFileTypea != "jpg" && $imageFileTypea != "png" && $imageFileTypea != "jpeg"
+			&& $imageFileType != "gif" ) {
+		$uploadOka = 0;
+	}
+// Check if $uploadOk is set to 0 by an error
+	if ($uploadOka == 0) {
+		echo "Cover photo not changed.";
+// if everything is ok, try to upload file
+	} else {
+		if (move_uploaded_file($_FILES["coverpic"]["tmp_name"], $target_filea)) {
 			echo "The file ". basename( $_FILES["coverpic"]["name"]). " has been uploaded.";            
 			$sqla = "update info set coverpic = '$target_filea' where username = '$user'";
 			$result = mysqli_query($conn,$sqla);
+		} else {
+			echo "Sorry, there was an error uploading your file.";
 		}
-		?>
-	</form>
+	}
+}
+?>
+</form>
+<a href="profile.php"><button>Profile</button></a>
 </body>
 </html>
