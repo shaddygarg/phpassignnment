@@ -7,13 +7,26 @@ $username=$_SESSION['username'];
 <html>
 <head>
 	<title>Change Password</title>
+		<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+	.form-control{
+		width:200px;
+	}
+</style>
 </head>
 <body>
 	<form action="" method="post">
-		Current Password : <input type="Password" name="curr" required="required">
-		New Password : <input type="Password" name="new1" required="required">
-		Again : <input type="Password" name="new2" required="required">
-		<input type="submit" name="submit">
+		Current Password : <input type="Password" name="curr" required="required" class="form-control"><br>
+		New Password : <input type="Password" name="new1" required="required" class="form-control"><br>
+		Again : <input type="Password" name="new2" required="required" class="form-control"><br>
+		<input type="submit" name="submit" class="btn btn-default"><br>
 	</form>
 	<?php
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -36,6 +49,6 @@ $username=$_SESSION['username'];
 		}
 	}
 	?>
-	<a href="profile.php"><button>Profile Page</button></a>
+	<a href="profile.php"><button class="btn btn-default">Profile Page</button></a>
 	</body>
 	</html>

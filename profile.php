@@ -2,16 +2,24 @@
 session_start();
 $username=$_SESSION['username'];
 function test_input($data) {
-       $data = trim($data);
-       $data = stripslashes($data); 
-       $data = htmlspecialchars($data);
-       return $data;
+	$data = trim($data);
+	$data = stripslashes($data); 
+	$data = htmlspecialchars($data);
+	return $data;
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Profile</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style type="text/css">
 		body{
 			margin: 0;
@@ -28,14 +36,14 @@ function test_input($data) {
 			width: 30%;
 			height: 200px;
 			z-index: 1;
-			top:250px;
+			top:230px;
 		}
 	</style>
 </head>
 <body>
 	<p style="display: inline-block;">Welcome <?php echo $_SESSION['username']; ?></p>
-	<a href="completeprofile.php"><button style="margin-left: 800px; ">Update Profile</button></a>
-	<a href="password.php"><button style="">Update Password</button></a><br>
+	<a href="completeprofile.php"><button style="margin-left: 800px; " class="btn btn-default">Update Profile</button></a>
+	<a href="password.php"><button style="" class="btn btn-default">Update Password</button></a><br>
 	<?php 
 	$sql=$conn->query("SELECT * from signedup where username='$username'");
 	$row = $sql->fetch_assoc();
@@ -43,9 +51,9 @@ function test_input($data) {
 	$row1 = $sql1->fetch_assoc();
 	
 	?>
-    <?php echo "<img src='".$row1['coverpic']."' id='cover' alt='Please update coverpic.'/>"; 
-    	  echo "<img src='".$row1['profilepic']."' id='profile' alt='please update profilepic.'/>";
-    	  ?>
+	<?php echo "<img src='".$row1['coverpic']."' id='cover' alt='Please update coverpic.'/>"; 
+	echo "<img src='".$row1['profilepic']."' id='profile' alt='please update profilepic.'/>";
+	?>
 	<table id="tab">
 		<tr><td>NAME :</td><td><?php echo $row['name']; ?></td></tr>
 		<tr><td>PHONE :</td><td><?php echo $row['phone']; ?></td></tr>
@@ -56,8 +64,8 @@ function test_input($data) {
 	</table>
 	<form action="" method="post">
 		POST:
-		<input type="text" name="postss">
-		<input type="submit" name="submit"></input>
+		<input type="text" name="postss" class="form-control" style="width: 200px; display: inline-block;">
+		<input type="submit" name="submit" class="btn btn-default"></input>
 		<br>
 		<p> 
 			FEED

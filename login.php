@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			$_SESSION["username"]=$username;
 			if(isset($_POST['remember'])){
 				$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
-				setcookie("username",sha1($username),time() + (86400 * 30),$domain,false);
+				setcookie("username",$username,time() + (86400 * 30),$domain,false);
 				setcookie("psswd",sha1($password),time()+(86400*30),$domain,false);
 				$sessionid=rand(10,10000);
 				$_SESSION['id']=$sessionid;
@@ -38,20 +38,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	else{
 		$err="User doesn't exist. Please sign up.";
 	}
-		
+
 }
 ?>
 <html>
 <head>
 	<title>Login</title>
+		<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.form-control{
+			width: 200px;
+		}
+		body{
+			margin: 10px;
+		}
+		.forms{
+			margin-top: 200px;
+			margin-left: 500px;
+		}
+	</style>
+
 </head>
 <body>
-	<form action="" method="post">
-		Username/Email : <input type="text" name="username"></input><?php echo $err ?><br>
-		Password : <input type="Password" name="password"></input><?php echo $err1 ?><br>
-		<input type="checkbox" name="remember"></input>Remember me
-		<input type="submit" name="submit"></input>
+<div class="forms">
+	<form action="" method="POST">
+		<div class="form-group">
+			<label for="email">Username:</label>
+			<input type="text" class="form-control" id="email" name="username"><?php echo $err ?>
+		</div>
+		<div class="form-group">
+			<label for="pwd">Password:</label>
+			<input type="password" class="form-control" id="pwd" name="password"><?php echo $err1 ?>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox" name="remember"> Remember me</label>
+		</div>
+		<button type="submit" class="btn btn-default">Submit</button>
 	</form>
+	</div>
 	
 </body>
 </html>

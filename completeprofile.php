@@ -25,14 +25,30 @@ function test_input($data) {
 			}  
 		}
 	</script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		body{
+			margin: 10px;
+		}
+		.form-control{
+			width:200px;
+		}
+	</style>
 </head>
 <body>
 	<form action="" method="post" enctype="multipart/form-data" onsubmit="return checktext()">
-		Branch: <input type="text" name="branch"  class="textbox1" onchange="checktext()" ><br>
-		Interests: <input type="text" name="interests" class="textbox1" onchange="checktext()" ><br>
-		Update Profile Picture: <input type="file" name="profilepic"  class="image" onchange="checkimg()" ><br>
-		Update Cover Picture: <input type="file" name="coverpic" class="image" onchange="checkimg()" ><br>
-		<input type="submit" name="submit">
+		Branch: <input type="text" name="branch"  class="form-control" onchange="checktext()" ><br>
+		Interests: <input type="text" name="interests" class="form-control" onchange="checktext()" ><br>
+		Update Profile Picture: <input type="file" name="profilepic"  class="btn btn-default" onchange="checkimg()" ><br>
+		Update Cover Picture: <input type="file" name="coverpic" class="btn btn-default" onchange="checkimg()" ><br>
+		<input type="submit" name="submit" class="btn btn-default">
 		<?php
 		if($_SERVER["REQUEST_METHOD"] == "POST") {
 			$branch=test_input($_POST["branch"]);
@@ -122,6 +138,6 @@ function test_input($data) {
 }
 ?>
 </form>
-<a href="profile.php"><button>Profile</button></a>
+<a href="profile.php"><button class="btn btn-default">Profile</button></a>
 </body>
 </html>
