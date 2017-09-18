@@ -63,6 +63,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		}
 		body{
 			margin: 10px;
+			background: url('uploads/body1.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
 		}
 		.forms{
 			margin-top: 200px;
@@ -83,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 				<input type="password" class="form-control" id="pwd" name="password"><?php echo $err1 ?>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name="remember"> Remember me</label>
+				<label><input type="checkbox" name="remember"> <b>Remember me<b></label>
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>

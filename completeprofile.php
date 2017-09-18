@@ -69,6 +69,10 @@ function test_input($data) {
 			else{
 				$user=$_SESSION['username'];
 			}
+			if($user==''){
+				echo "Please Log in to continue"."<br>";
+				header('location:login.php');
+			}
 			$sql12=$conn->query("SELECT username FROM info where username='$user'");
 			$row12=$sql12->fetch_assoc();
 			if($row12['username']==""){

@@ -18,42 +18,4 @@
 	text-decoration: none;
 	margin: auto;
 }
-$name = $email = $username = $password = $phone =$gender = "xx";
-echo $name;
-$name=test_input($_POST["name"]);
-$email=test_input($_POST["email"]);
-$username=test_input($_POST["username"]);
-$password=test_input($_POST["password"]);
-$phone=test_input($_POST["phone"]);
-$gender=test_input($_POST["gender"]);
-$cnfmpassword=$_POST(["confirmpassword"]);
-$flag=0;
-function test_input($data){
-	$data=trim(stripslashes(htmlspecialchars($data)));
-	return $data;
-}
-if(preg_match("/^[a-zA-Z0-9]+$/",$username)){
-	echo "success username";
-}
-else{
-	$flag=1;
-}
-if(preg_match("/[^a-zA-Z]+/",$name)){
-	echo "success name";
-}
-else{
-	$flag=1;
-}	
-if(preg_match("/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/",$email)){
-	echo "success email";
-}
-else{
-	$flag=1;
-}	
-if($password==$cnfmpassword)){
-	echo "success password";
-}
-else{
-	$flag=1;
-}
 

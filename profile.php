@@ -16,6 +16,7 @@ else{
 }
 if($username==''){
 	echo "Please Log in to continue"."<br>";
+	header('location:login.php');
 }
 function test_input($data) {
 	$data = trim($data);
